@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: besu-config-toml-configmap
+  labels:
+    app: besu-config-toml-configmap
+  namespace: besu
+data:
+  static-nodes.json: |-
+    [
+      "enode://3392c0adf227d31873f42912f306db5903d90ceefeb62be076f76877d946d141e533fbf3d12cb2e5b0b68afbd1d3f8a4169966a99a9f5631210cd1d1becb1730@validator1-0.besu-validator1.besu.svc.cluster.local:30303",
+      "enode://a0e03c9ba8f1163fdee087f781d7ee7f09aa58ef8b46ae43cc211b796f813437ed1e8e1d9fe3ae8a4ad691c485e2d6528c00853bbee1ac2dc182d88b172a103a@validator2-0.besu-validator2.besu.svc.cluster.local:30303",
+      "enode://d563ebc5ecafa8bf93995cfa32918a9a445d0245428201b9a5102ebd5218526e2b841dc66d1b7ee0b41d68422c6a195de6cca7ba74dce3ebc5b24715d173e9b7@validator3-0.besu-validator3.besu.svc.cluster.local:30303",
+      "enode://974b7a6c510b72673158d695ef519a633e4533197cf4547e73ea152dacf7bf3c81892762b1960a7b7fd8c5f81d0cba1e4635aae125ae252b48e1007564357362@validator4-0.besu-validator4.besu.svc.cluster.local:30303"
+    ]
+  
+  config.toml: |-
+    # Every possible CLI should be in this file.
+    #
+    # Please use a plausible value, besu has to at least be able to parse it.
+    # If it is a multi-valued CLI make it a TOML array.
+    # If it is a number or boolean make it a number or boolean
+    # All other config options are strings, and must be quoted.
+
+    # Node Information
+    data-path="/data"
+    genesis-file="/etc/genesis/genesis.json"
+    static-nodes-file="/etc/besu/static-nodes.json"
+
+    # TODO : insert as command line & mount Volume
+    # rpc-http-authentication-credentials-file="none"
+    # TODO : insert as command line & mount Volume
+    # rpc-ws-authentication-credentials-file="none"
+    logging="INFO"
+
+    min-gas-price=0
+    # Transaction Pool
+    # tx-pool-retention-hours=999
+    # tx-pool-max-size=1024
+
+    # P2P network
+    p2p-enabled=true
+    discovery-enabled=true
+    #p2p-host="0.0.0.0"
+    p2p-port=30303
+    max-peers=25
+    host-allowlist=["*"]
+
+    # JSON-RPC
+    rpc-http-enabled=true
+    rpc-http-host="0.0.0.0"
+    rpc-http-port=8545
+    rpc-http-api=["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET", "EEA", "WEB3"]
+    rpc-http-cors-origins=["*"]
+    rpc-http-authentication-enabled=false
+
+    # GRAPHQL-RPC
+    graphql-http-enabled=false
+    graphql-http-host="0.0.0.0"
+    graphql-http-port=8547
+    graphql-http-cors-origins=["*"]
+
+    # WebSockets API
+    rpc-ws-enabled=false
+    rpc-ws-host="0.0.0.0"
+    rpc-ws-port=8546
+    rpc-ws-api=["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET", "EEA", "WEB3"]
+    rpc-ws-authentication-enabled=false
+
+    # Metrics
+    metrics-enabled=true
+    metrics-host="0.0.0.0"
+    metrics-port=9545
+
+    # Permissioning
+    #permissions-nodes-config-file-enabled=false
+    #permissions-nodes-config-file="/etc/permissions/nodes-allowlist.yml"
+

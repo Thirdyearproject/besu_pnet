@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: besu-nodes-configmap
+  labels:
+    app: besu-nodes-configmap
+  namespace: besu
+data:
+  node1PubKey: "3392c0adf227d31873f42912f306db5903d90ceefeb62be076f76877d946d141e533fbf3d12cb2e5b0b68afbd1d3f8a4169966a99a9f5631210cd1d1becb1730"
+
